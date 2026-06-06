@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "clifft-qiskit"
+version = "0.1.0"
+description = "Qiskit BackendV2 provider for the Clifft near-Clifford simulator"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "Apache-2.0"
+authors = [{ name = "Ashmit JaiSarita Gupta" }]
+keywords = ["quantum", "qiskit", "clifft", "simulator", "clifford"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+dependencies = [
+    "clifft>=0.4",
+    "qiskit>=1.0",
+    "numpy>=1.26",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "qiskit-aer>=0.15", "ruff>=0.6"]
+
+[project.urls]
+Homepage = "https://github.com/ashmitjsg/clifft-qiskit"
+Issues = "https://github.com/ashmitjsg/clifft-qiskit/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/clifft_qiskit"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
