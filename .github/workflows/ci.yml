@@ -14,16 +14,6 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.12", "3.13"]
-        # Test the oldest supported Qiskit minor and the latest >=1.0 range.
-        # The floor range catches accidental API creep; the wide range catches
-        # compatibility breaks before widening to Qiskit 2.x.
-        qiskit-range:
-          - "qiskit>=1.0,<1.1"
-          - "qiskit>=1.0"
-        exclude:
-          # Qiskit 1.0 ships no cp313 wheels, so skip the floor on Python 3.13.
-          - python-version: "3.13"
-            qiskit-range: "qiskit>=1.0,<1.1"
 
     steps:
       - uses: actions/checkout@v4
@@ -38,7 +28,6 @@ jobs:
           else
             uv sync --extra dev --locked
           fi
-          uv pip install --upgrade "${{ matrix.qiskit-range }}"
       - name: Lint
         run: uv run ruff check .
       - name: Format check
@@ -46,15 +35,15 @@ jobs:
       - name: Test
         run: uv run pytest
       - name: Build distributions
-        if: matrix.python-version == '3.12' && matrix.qiskit-range == 'qiskit>=1.0'
+        if: matrix.python-version == '3.12'
         run: uv build
       - name: Check package metadata
-        if: matrix.python-version == '3.12' && matrix.qiskit-range == 'qiskit>=1.0'
+        if: matrix.python-version == '3.12'
         run: uv run twine check dist/*
       - name: Test installed wheel
-        if: matrix.python-version == '3.12' && matrix.qiskit-range == 'qiskit>=1.0'
+        if: matrix.python-version == '3.12'
         run: |
           python -m venv .wheel-smoke
           .wheel-smoke/bin/python -m pip install -U pip
-          .wheel-smoke/bin/python -m pip install 'pytest>=8.0' 'qiskit-aer>=0.15' dist/*.whl
+          .wheel-smoke/bin/python -m pip install 'pytest>=8.0' 'qiskit-aer>=0.17' dist/*.whl
           .wheel-smoke/bin/python -m pytest tests -q

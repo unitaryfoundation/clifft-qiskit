@@ -19,12 +19,12 @@ classifiers = [
 ]
 dependencies = [
     "clifft>=0.4",
-    "qiskit>=1.0",
+    "qiskit>=2.0",
     "numpy>=1.26",
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8", "qiskit-aer>=0.15", "ruff>=0.6", "twine>=6.0"]
+dev = ["pytest>=8", "qiskit-aer>=0.17", "ruff>=0.6", "twine>=6.0"]
 
 [project.urls]
 Homepage = "https://github.com/unitaryfoundation/clifft-qiskit"
