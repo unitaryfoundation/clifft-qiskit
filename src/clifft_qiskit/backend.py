@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from importlib.metadata import PackageNotFoundError, version
 from typing import Any
 
 import clifft
@@ -36,6 +37,11 @@ from clifft_qiskit._translate import (
     qiskit_to_stim,
 )
 
+try:
+    _PACKAGE_VERSION = version("clifft-qiskit")
+except PackageNotFoundError:
+    _PACKAGE_VERSION = "0.0.0"
+
 
 class ClifftJob(JobV1):
     """Synchronous job holding an already-computed Result."""
@@ -63,7 +69,7 @@ class ClifftBackend(BackendV2):
         name: str = "clifft",
         num_qubits: int | None = None,
     ):
-        super().__init__(provider=provider, name=name, backend_version="0.1.0")
+        super().__init__(provider=provider, name=name, backend_version=_PACKAGE_VERSION)
         self._target = self._build_target(num_qubits)
 
     @staticmethod

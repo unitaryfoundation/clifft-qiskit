@@ -1,15 +1,49 @@
 name: CI
-on: [push, pull_request]
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 9 * * 1"
+
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         python-version: ["3.12", "3.13"]
+
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
       - uses: astral-sh/setup-uv@v5
-      - run: uv sync --extra dev --python ${{ matrix.python-version }}
-      - run: uv run ruff check .
-      - run: uv run ruff format --check .
-      - run: uv run pytest -q
+      - name: Install dependencies
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            uv sync --extra dev --upgrade
+          else
+            uv sync --extra dev --locked
+          fi
+      - name: Lint
+        run: uv run ruff check .
+      - name: Format check
+        run: uv run ruff format --check .
+      - name: Test
+        run: uv run pytest
+      - name: Build distributions
+        if: matrix.python-version == '3.12'
+        run: uv build
+      - name: Check package metadata
+        if: matrix.python-version == '3.12'
+        run: uv run twine check dist/*
+      - name: Test installed wheel
+        if: matrix.python-version == '3.12'
+        run: |
+          python -m venv .wheel-smoke
+          .wheel-smoke/bin/python -m pip install -U pip
+          .wheel-smoke/bin/python -m pip install 'pytest>=8.0' 'qiskit-aer>=0.17' dist/*.whl
+          .wheel-smoke/bin/python -m pytest tests -q
