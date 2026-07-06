@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [0.1.0] - 2026-06-22
+## [0.1.0] - 2026-07-06
 
 This is the first public release of `clifft-qiskit`, a Qiskit `BackendV2`
 provider for the Clifft near-Clifford simulator. It runs Qiskit
