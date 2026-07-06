@@ -27,8 +27,9 @@ dependencies = [
 dev = ["pytest>=8", "qiskit-aer>=0.15", "ruff>=0.6"]
 
 [project.urls]
-Homepage = "https://github.com/ashmitjsg/clifft-qiskit"
-Issues = "https://github.com/ashmitjsg/clifft-qiskit/issues"
+Homepage = "https://github.com/unitaryfoundation/clifft-qiskit"
+Issues = "https://github.com/unitaryfoundation/clifft-qiskit/issues"
+Repository = "https://github.com/unitaryfoundation/clifft-qiskit"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/clifft_qiskit"]
