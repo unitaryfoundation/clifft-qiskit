@@ -28,6 +28,7 @@ dev = ["pytest>=8", "qiskit-aer>=0.17", "ruff>=0.6", "twine>=6.0"]
 
 [project.urls]
 Homepage = "https://github.com/unitaryfoundation/clifft-qiskit"
+Documentation = "https://unitaryfoundation.github.io/clifft/getting-started/integrations/"
 Issues = "https://github.com/unitaryfoundation/clifft-qiskit/issues"
 Repository = "https://github.com/unitaryfoundation/clifft-qiskit"
 
