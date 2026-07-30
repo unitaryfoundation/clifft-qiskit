@@ -18,7 +18,9 @@ from qiskit import QuantumCircuit
 from clifft_qiskit import ClifftProvider
 
 qc = QuantumCircuit(2, 2)
-qc.h(0); qc.cx(0, 1); qc.measure([0, 1], [0, 1])
+qc.h(0)
+qc.cx(0, 1)
+qc.measure([0, 1], [0, 1])
 
 backend = ClifftProvider().get_backend("clifft")
 counts = backend.run(qc, shots=1000).result().get_counts()
