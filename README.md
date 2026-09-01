@@ -4,15 +4,17 @@ A [Qiskit](https://www.ibm.com/quantum/qiskit) `BackendV2` provider for the
 [Clifft](https://github.com/unitaryfoundation/clifft) near-Clifford simulator.
 Run Qiskit circuits on Clifft without hand-writing Stim.
 
-See Clifft's [front-end integrations guide](https://unitaryfoundation.github.io/clifft/getting-started/integrations/)
-for how this adapter fits with other Clifft front ends.
+See Clifft's [Circuit Inputs guide](https://unitaryfoundation.github.io/clifft/stable/guide/circuit-inputs/#qiskit)
+for how this adapter fits with other Clifft input paths.
 
 ## Install
+
 ```bash
 pip install clifft-qiskit
 ```
 
 ## Quickstart
+
 ```python
 from qiskit import QuantumCircuit
 from clifft_qiskit import ClifftProvider
